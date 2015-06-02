@@ -14,7 +14,7 @@ public class TimeUtil {
 			Date date = new Date();
 			Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 			calendar.setTimeInMillis(currentMillis);
-			currentDay = currentMillis < previousMillis ? currentDay + 1 : currentDay;
+			currentDay = isNewDay(previousMillis, currentMillis) ? currentDay + 1 : currentDay;
 			date.setDay(currentDay);
 			date.setHours(calendar.get(Calendar.HOUR_OF_DAY));
 			date.setMinutes(calendar.get(Calendar.MINUTE));
@@ -31,4 +31,7 @@ public class TimeUtil {
 		return null;
 	}
 	
+	public boolean isNewDay(Long previousTime, Long currentTime) {
+		return previousTime != null | currentTime != null ? currentTime < previousTime : false;
+	}
 }
