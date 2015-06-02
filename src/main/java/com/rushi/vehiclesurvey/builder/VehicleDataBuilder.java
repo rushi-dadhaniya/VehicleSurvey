@@ -1,5 +1,6 @@
 package com.rushi.vehiclesurvey.builder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,10 +20,10 @@ public class VehicleDataBuilder {
 		TimeUtil timeUtil = new TimeUtil();
 		VehicleDataParser vehicleDataParser = new VehicleDataParser();
 		SpeedUtil speedUtil = new SpeedUtil();
-		
 		Map<Character, List<VehicleVO>> vehicleBoundDateListMap = VehicleDataFactory.getInstance();
+
 		int currentDay = 1;
-		int numberOfBounds = RoadBounds.values().length;
+		int numberOfBounds = getNumberOfBounds();
 		Character previousRoadBound = vehicleDataParser.getRoadBound(vehicleReadings.get(0));
 		Long previousTime = vehicleDataParser.getTimeInMillis(vehicleReadings.get(0));
 		Date startDate = timeUtil.convertMilliSecondsToDate(new Long(0), previousTime, currentDay);
@@ -35,49 +36,25 @@ public class VehicleDataBuilder {
 			Character currentRoadBound = vehicleDataParser.getRoadBound(vehicleReading);
 			double speed = 0;
 			
-			if((vehicleReadingIterator + 1) % numberOfBounds == 0) {
+			if(isVehiclePossible(numberOfBounds, vehicleReadingIterator)) {
 				if(currentRoadBound == previousRoadBound) {
 					speed = speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToMinutes(currentTime - previousTime));
-					buildVehicleDataOnSameRoadBound(currentRoadBound, startDate, date, vehicleBoundDateListMap, speed);
+					buildVehicleDataOnSameRoadBound(currentRoadBound.toString(), startDate, date, vehicleBoundDateListMap, speed);
 					vehicleReadingIterator += 1;
-					if(vehicleReadingIterator < vehicleReadings.size()) {
-						previousTime = vehicleDataParser.getTimeInMillis(vehicleReadings.get(vehicleReadingIterator));
-						if(previousTime < currentTime) {
-							currentDay += 1;
-						}
-						previousRoadBound = vehicleDataParser.getRoadBound(vehicleReadings.get(vehicleReadingIterator));
-						startDate = timeUtil.convertMilliSecondsToDate(new Long(0), previousTime, currentDay);
-					}
 				}
 				else {
-					long oneBoundTime = previousTime;
-					long secondBoundTime = currentTime;
-					for(int i = 0 ; i < numberOfBounds ; i++) {
-						vehicleReadingIterator += 1;
-						
-						if(i % numberOfBounds == 0) {
-							oneBoundTime = vehicleDataParser.getTimeInMillis(vehicleReadings.get(vehicleReadingIterator)) - oneBoundTime;
-						}
-						else {
-							secondBoundTime = vehicleDataParser.getTimeInMillis(vehicleReadings.get(vehicleReadingIterator)) - secondBoundTime;
-						}
-						
+					List<Long> boundTimes = iterateTillLastAxel(previousTime, currentTime, vehicleReadings, vehicleReadingIterator);
+					speed = calculateAverageSpeed(boundTimes);
+					buildVehicleDataOnDifferentBounds(currentRoadBound.toString(), previousRoadBound.toString(), startDate, date, vehicleBoundDateListMap, speed);
+					vehicleReadingIterator += getNumberOfBounds() + 1;
+				}
+				if(vehicleReadingIterator < vehicleReadings.size()) {
+					previousTime = vehicleDataParser.getTimeInMillis(vehicleReadings.get(vehicleReadingIterator));
+					if(timeUtil.isNewDay(currentTime, previousTime)) {
+						currentDay += 1;
 					}
-					
-					double speed1 = speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToMinutes(oneBoundTime));
-					double speed2 = speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToMinutes(secondBoundTime));
-					speed = (speed1 + speed2) / 2;
-					buildVehicleDataOnDifferentBounds(currentRoadBound, previousRoadBound, startDate, date, vehicleBoundDateListMap, speed);
-					vehicleReadingIterator += 1;
-					if(vehicleReadingIterator < vehicleReadings.size()) {
-						previousTime = vehicleDataParser.getTimeInMillis(vehicleReadings.get(vehicleReadingIterator));
-						if(previousTime < currentTime) {
-							currentDay += 1;
-						}
-						previousRoadBound = vehicleDataParser.getRoadBound(vehicleReadings.get(vehicleReadingIterator));
-						startDate = timeUtil.convertMilliSecondsToDate(new Long(0), previousTime, currentDay);
-					}
-					
+					previousRoadBound = vehicleDataParser.getRoadBound(vehicleReadings.get(vehicleReadingIterator));
+					startDate = timeUtil.convertMilliSecondsToDate(new Long(0), previousTime, currentDay);
 				}
 			}
 			
@@ -89,29 +66,66 @@ public class VehicleDataBuilder {
 		}
 		
 	}
+	
+	private double calculateAverageSpeed(List<Long> boundTimes) {
 
-	private void buildVehicleDataOnSameRoadBound(Character currentRoadBound, Date startDate, Date endDate, Map<Character, List<VehicleVO>> vehicleBoundDateListMap, double speed) {
-			if(vehicleBoundDateListMap.get(currentRoadBound) != null && speed != 0) {
-			
-			VehicleVO vehicleVO = new VehicleVO();
-			vehicleVO.setBounds(currentRoadBound.toString());
-			vehicleVO.setStartDate(startDate);
-			vehicleVO.setEndDate(endDate);
-			vehicleVO.setSpeed(speed);
-			vehicleBoundDateListMap.get(currentRoadBound).add(vehicleVO);
+		SpeedUtil speedUtil = new SpeedUtil();
+		TimeUtil timeUtil = new TimeUtil();
+		double speed = 0;
+		
+		for(Long boundTime : boundTimes) {
+			speed += speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToMinutes(boundTime));
 		}
+		return speed / boundTimes.size();
 	}
 
-	private void buildVehicleDataOnDifferentBounds(Character currentRoadBound, Character previousRoadBound, Date startDate, Date endDate, Map<Character, List<VehicleVO>> vehicleBoundDateListMap, double speed) {
+	private List<Long> iterateTillLastAxel(Long previousTime, Long currentTime, List<String> vehicleReadings, int vehicleReadingIterator) {
+	
+		int numberOfBounds = getNumberOfBounds();
+		VehicleDataParser vehicleDataParser = new VehicleDataParser(); 
 		
-		if(vehicleBoundDateListMap.get(previousRoadBound) != null && speed != 0) {
+		List<Long> boundTimes = new ArrayList<Long>();
+		boundTimes.add(previousTime);
+		boundTimes.add(currentTime);
+		
+		for(int iterator = 0 ; iterator < numberOfBounds ; iterator++) {
+			vehicleReadingIterator += 1;
+			if(vehicleReadingIterator < vehicleReadings.size()) {
+				Long boundTime = vehicleDataParser.getTimeInMillis(vehicleReadings.get(vehicleReadingIterator));
+				int index = 0;
+				if(iterator % numberOfBounds != 0) {
+					index = 1;
+				}
+				boundTimes.set(index, boundTime - boundTimes.get(index));
+			}
+		}
+		return boundTimes;
+	}
+
+	private boolean isVehiclePossible(int numberOfBounds, int vehicleReadingIterator) {
+		return (vehicleReadingIterator + 1) % numberOfBounds == 0;
+	}
+
+	private int getNumberOfBounds() {
+		return RoadBounds.values().length;
+	}
+
+	private void buildVehicleDataOnSameRoadBound(String currentRoadBound, Date startDate, Date endDate, Map<Character, List<VehicleVO>> vehicleBoundDateListMap, double speed) {
+		buildVehicleDataOnDifferentBounds(currentRoadBound, " ", startDate, endDate, vehicleBoundDateListMap, speed);
+	}
+
+	private void buildVehicleDataOnDifferentBounds(String currentRoadBound, String previousRoadBound, Date startDate, Date endDate, Map<Character, List<VehicleVO>> vehicleBoundDateListMap, double speed) {
+		
+		if(vehicleBoundDateListMap.get(currentRoadBound.charAt(0)) != null && speed != 0) {
 			VehicleVO vehicleVO = new VehicleVO();
 			vehicleVO.setBounds(currentRoadBound.toString() + " " + previousRoadBound.toString() );
 			vehicleVO.setStartDate(startDate);
 			vehicleVO.setEndDate(endDate);
 			vehicleVO.setSpeed(speed);
-			vehicleBoundDateListMap.get(currentRoadBound).add(vehicleVO);
-			vehicleBoundDateListMap.get(previousRoadBound).add(vehicleVO);
+			vehicleBoundDateListMap.get(currentRoadBound.charAt(0)).add(vehicleVO);
+			if(vehicleBoundDateListMap.get(previousRoadBound.charAt(0)) != null) {
+				vehicleBoundDateListMap.get(previousRoadBound.charAt(0)).add(vehicleVO);
+			}
 		}
 	}
 	
