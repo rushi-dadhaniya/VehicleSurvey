@@ -10,18 +10,18 @@ public class FileStreamReader {
 
 	public List<String> read(String path) {
 
-		List<String> lines = new ArrayList<String>();
+		List<String> vehicleReadings = new ArrayList<String>();
 		
 		if(path != null) {
 			
 			try {
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-				String line;
-				while((line = bufferedReader.readLine()) != null) {
-					lines.add(line);
+				String vehicleReading;
+				while((vehicleReading = bufferedReader.readLine()) != null) {
+					vehicleReadings.add(vehicleReading);
 				}
 				bufferedReader.close();
-				return lines;
+				return vehicleReadings;
 				
 			}
 			catch(IOException exception) {

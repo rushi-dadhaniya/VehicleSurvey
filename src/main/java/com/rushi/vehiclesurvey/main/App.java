@@ -17,21 +17,21 @@ public class App
     {
         if(args.length >= 1) {
         	String path = args[0];
-        	List<String> lines = readData(path);
+        	List<String> vehicleReadings = readData(path);
         	
         	System.out.println("Input:");
         	
-        	for(String line : lines) {
-        		System.out.println(line);
+        	for(String vehicleReading : vehicleReadings) {
+        		System.out.println(vehicleReading);
         	}
         	
         	VehicleDataBuilder vehicleDataBuilder = new VehicleDataBuilder();
         	
-        	vehicleDataBuilder.build(lines);
+        	vehicleDataBuilder.build(vehicleReadings);
         	
-        	Map<Character, List<Date>> instance = VehicleDataFactory.getInstance();
+        	Map<Character, List<Date>> vehicleDataList = VehicleDataFactory.getInstance();
         	
-        	System.out.println(instance);
+        	System.out.println(vehicleDataList);
         	
         }
         else {

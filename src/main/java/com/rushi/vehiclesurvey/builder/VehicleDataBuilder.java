@@ -11,25 +11,23 @@ import com.rushi.vehilcesurvey.util.VehicleDataFactory;
 
 public class VehicleDataBuilder {
 
-	public void build(List<String> lines) {
-		
-		Map<Character, List<Date>> vehicleBoundDateListMap = VehicleDataFactory.getInstance();
+	public void build(List<String> vehicleReadings) {
 		
 		TimeUtil timeUtil = new TimeUtil();
-		
-		Long previousMillis = new Long(0);
-		int currentDay = 1;
 		VehicleDataParser vehicleDataParser = new VehicleDataParser();
 		
-		for(String line : lines) {
-			Long currentTime = vehicleDataParser.getTimeInMillis(line);
+		Map<Character, List<Date>> vehicleBoundDateListMap = VehicleDataFactory.getInstance();
+		Long previousMillis = new Long(0);
+		int currentDay = 1;
+		
+		for(String vehicleReading : vehicleReadings) {
+			Long currentTime = vehicleDataParser.getTimeInMillis(vehicleReading);
 			Date date = timeUtil.convertMilliSecondsToDate(previousMillis, currentTime, currentDay);
 			previousMillis = currentTime;
 			currentDay = date.getDay();
-			Character roadBound = vehicleDataParser.getRoadBound(line);
+			Character roadBound = vehicleDataParser.getRoadBound(vehicleReading);
 			vehicleBoundDateListMap.get(roadBound).add(date);
-			
 		}
-		
 	}
+	
 }

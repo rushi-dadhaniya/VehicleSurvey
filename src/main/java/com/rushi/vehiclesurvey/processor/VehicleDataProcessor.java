@@ -9,16 +9,16 @@ import com.rushi.vehilcesurvey.util.PrintQueue;
 
 public class VehicleDataProcessor implements Processor {
 
-	public void process(List<String> lines) {
-		if(lines != null) {
+	public void process(List<String> vehicleReadings) {
+		if(vehicleReadings != null) {
 			VehicleReadingValidator vehicleReadingValidator = new VehicleReadingValidator();
-			for(String line : lines) {
-				if(vehicleReadingValidator.isValid(line)) {
+			for(String vehicleReading : vehicleReadings) {
+				if(vehicleReadingValidator.isValid(vehicleReading)) {
 					VehicleDataParser vehicleDataParser = new VehicleDataParser();
-					vehicleDataParser.getTimeInMillis(line);
+					vehicleDataParser.getTimeInMillis(vehicleReading);
 				}
 				else {
-					PrintQueue.getPrintQueue().add(Messages.DATA_INVALID.getMessage() + line);
+					PrintQueue.getPrintQueue().add(Messages.DATA_INVALID.getMessage() + vehicleReading);
 				}
 			}
 		}

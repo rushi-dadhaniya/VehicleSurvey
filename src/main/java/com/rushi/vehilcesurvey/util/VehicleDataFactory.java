@@ -15,13 +15,11 @@ public class VehicleDataFactory {
 	public static Map<Character, List<Date>> getInstance() {
 
 		if (vehicleDataListMap.isEmpty()) {
-
 			for (RoadBounds roadBound : RoadBounds.values()) {
 				vehicleDataListMap.put(roadBound.getBound(),
 						new ArrayList<Date>());
 			}
 		}
-
 		return vehicleDataListMap;
 	}
 
