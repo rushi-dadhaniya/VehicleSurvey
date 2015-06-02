@@ -15,11 +15,15 @@ import com.rushi.vehilcesurvey.util.VehicleDataFactory;
 
 public class VehicleDataBuilder {
 
+	private VehicleDataParser vehicleDataParser;
+	private TimeUtil timeUtil;
+	private SpeedUtil speedUtil;
+	
 	public void build(List<String> vehicleReadings) {
 		
-		TimeUtil timeUtil = new TimeUtil();
-		VehicleDataParser vehicleDataParser = new VehicleDataParser();
-		SpeedUtil speedUtil = new SpeedUtil();
+		setTimeUtil(new TimeUtil());
+		setSpeedUtil(new SpeedUtil());
+		setVehicleDataParser(new VehicleDataParser());
 		Map<Character, List<VehicleVO>> vehicleBoundDateListMap = VehicleDataFactory.getInstance();
 
 		int currentDay = 1;
@@ -69,10 +73,7 @@ public class VehicleDataBuilder {
 	
 	private double calculateAverageSpeed(List<Long> boundTimes) {
 
-		SpeedUtil speedUtil = new SpeedUtil();
-		TimeUtil timeUtil = new TimeUtil();
 		double speed = 0;
-		
 		for(Long boundTime : boundTimes) {
 			speed += speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToMinutes(boundTime));
 		}
@@ -82,8 +83,6 @@ public class VehicleDataBuilder {
 	private List<Long> iterateTillLastAxel(Long previousTime, Long currentTime, List<String> vehicleReadings, int vehicleReadingIterator) {
 	
 		int numberOfBounds = getNumberOfBounds();
-		VehicleDataParser vehicleDataParser = new VehicleDataParser(); 
-		
 		List<Long> boundTimes = new ArrayList<Long>();
 		boundTimes.add(previousTime);
 		boundTimes.add(currentTime);
@@ -127,6 +126,18 @@ public class VehicleDataBuilder {
 				vehicleBoundDateListMap.get(previousRoadBound.charAt(0)).add(vehicleVO);
 			}
 		}
+	}
+	
+	public void setVehicleDataParser(VehicleDataParser vehicleDataParser) {
+		this.vehicleDataParser = vehicleDataParser;
+	}
+
+	public void setTimeUtil(TimeUtil timeUtil) {
+		this.timeUtil = timeUtil;
+	}
+
+	public void setSpeedUtil(SpeedUtil speedUtil) {
+		this.speedUtil = speedUtil;
 	}
 	
 }
