@@ -6,14 +6,14 @@ import java.util.Map;
 import com.rushi.vehiclesurvey.parser.VehicleDataParser;
 import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehilcesurvey.util.TimeUtil;
-import com.rushi.vehilcesurvey.util.VehicleData;
+import com.rushi.vehilcesurvey.util.VehicleDataFactory;
 
 
 public class VehicleDataBuilder {
 
 	public void build(List<String> lines) {
 		
-		Map<Character, List<Date>> vehicleBoundDateListMap = VehicleData.getInstance();
+		Map<Character, List<Date>> vehicleBoundDateListMap = VehicleDataFactory.getInstance();
 		
 		TimeUtil timeUtil = new TimeUtil();
 		

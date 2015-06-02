@@ -9,7 +9,7 @@ import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehiclesurvey.vo.Messages;
 import com.rushi.vehilcesurvey.util.PrintQueue;
 import com.rushi.vehilcesurvey.util.PrintUtil;
-import com.rushi.vehilcesurvey.util.VehicleData;
+import com.rushi.vehilcesurvey.util.VehicleDataFactory;
 
 public class App 
 {
@@ -29,7 +29,7 @@ public class App
         	
         	vehicleDataBuilder.build(lines);
         	
-        	Map<Character, List<Date>> instance = VehicleData.getInstance();
+        	Map<Character, List<Date>> instance = VehicleDataFactory.getInstance();
         	
         	System.out.println(instance);
         	

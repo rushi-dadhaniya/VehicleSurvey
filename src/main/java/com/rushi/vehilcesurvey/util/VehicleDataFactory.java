@@ -8,7 +8,7 @@ import java.util.Map;
 import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehiclesurvey.vo.RoadBounds;
 
-public class VehicleData {
+public class VehicleDataFactory {
 
 	private static Map<Character, List<Date>> vehicleDataListMap = new HashMap<Character, List<Date>>();
 
