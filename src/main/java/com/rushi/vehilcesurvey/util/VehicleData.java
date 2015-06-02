@@ -11,14 +11,18 @@ import com.rushi.vehiclesurvey.vo.RoadBounds;
 public class VehicleData {
 
 	private static Map<Character, List<Date>> vehicleDataListMap = new HashMap<Character, List<Date>>();
-	
+
 	public static Map<Character, List<Date>> getInstance() {
-		
-		for(RoadBounds roadBound : RoadBounds.values()) {
-			vehicleDataListMap.put(roadBound.getBound(), new ArrayList<Date>());
+
+		if (vehicleDataListMap.isEmpty()) {
+
+			for (RoadBounds roadBound : RoadBounds.values()) {
+				vehicleDataListMap.put(roadBound.getBound(),
+						new ArrayList<Date>());
+			}
 		}
-		
+
 		return vehicleDataListMap;
 	}
-	
+
 }
