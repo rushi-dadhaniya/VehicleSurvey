@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.rushi.vehiclesurvey.builder.VehicleDataBuilder;
 import com.rushi.vehiclesurvey.reader.FileStreamReader;
-import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehiclesurvey.vo.Messages;
+import com.rushi.vehiclesurvey.vo.VehicleVO;
 import com.rushi.vehilcesurvey.util.PrintQueue;
 import com.rushi.vehilcesurvey.util.PrintUtil;
 import com.rushi.vehilcesurvey.util.VehicleDataFactory;
@@ -29,7 +29,7 @@ public class App
         	
         	vehicleDataBuilder.build(vehicleReadings);
         	
-        	Map<Character, List<Date>> vehicleDataList = VehicleDataFactory.getInstance();
+        	Map<Character, List<VehicleVO>> vehicleDataList = VehicleDataFactory.getInstance();
         	
         	System.out.println(vehicleDataList);
         	

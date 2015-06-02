@@ -6,6 +6,8 @@ import com.rushi.vehiclesurvey.vo.Date;
 
 public class TimeUtil {
 
+	private static final double MILLIS_MINUTE_FACTOR = 3600.0;
+	
 	public Date convertMilliSecondsToDate(Long previousMillis, Long currentMillis, int currentDay) {
 		
 		if(previousMillis != null && currentMillis != null) {
@@ -22,4 +24,11 @@ public class TimeUtil {
 		return null;
 	}
 
+	public Double convertMilliSecondsToMinutes(Long millis) {
+		if(millis != null) {
+			return millis / MILLIS_MINUTE_FACTOR;
+		}
+		return null;
+	}
+	
 }
