@@ -15,7 +15,7 @@ public class VehicleDataProcessor implements Processor {
 			for(String line : lines) {
 				if(vehicleReadingValidator.isValid(line)) {
 					VehicleDataParser vehicleDataParser = new VehicleDataParser();
-					vehicleDataParser.parse(line);
+					vehicleDataParser.getTimeInMillis(line);
 				}
 				else {
 					PrintQueue.getPrintQueue().add(Messages.DATA_INVALID.getMessage() + line);

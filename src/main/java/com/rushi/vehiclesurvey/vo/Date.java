@@ -70,4 +70,10 @@ public class Date {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Date [day=" + day + ", hours=" + hours + ", minutes=" + minutes
+				+ ", seconds=" + seconds + "]";
+	}
+	
 }

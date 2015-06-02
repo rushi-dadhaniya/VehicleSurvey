@@ -2,13 +2,19 @@ package com.rushi.vehiclesurvey.vo;
 
 public enum RoadBounds {
 
-	A("North bound"),
-	B("South bound");
+	A('A', "North bound"),
+	B('B', "South bound");
+
+	private Character bound;
+	String boundName;
 	
-	String bound;
-	
-	private RoadBounds(String bound) {
+	private RoadBounds(Character bound, String boundName) {
 		this.bound = bound;
+		this.boundName = boundName;
 	}
-	
+
+	public Character getBound() {
+		return bound;
+	}
+
 }
