@@ -3,9 +3,10 @@ package com.rushi.vehiclesurvey.analyser;
 import java.util.List;
 import java.util.Map;
 
+import com.rushi.vehiclesurvey.criteria.QueryCriteria;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
 
-public class DistanceAnalyser implements Analyser {
+public class DistanceAnalyser extends AbstractAnalyser {
 
 	public void doAnalysis(Map<Character, List<VehicleVO>> vehicleDataMap) {
 
@@ -44,6 +45,34 @@ public class DistanceAnalyser implements Analyser {
 		double speed = (vehicle1.getSpeed() + vehicle2.getSpeed()) / 2;
 		long time = (vehicle1.getStartMillis() + vehicle2.getStartMillis()) / 2;
 		return speed * time;
+		
+	}
+
+	@Override
+	void totalVehiclesAnalysis(QueryCriteria queryCriteria,
+			Map<Character, List<VehicleVO>> vehicleDataMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void perDayVehicleAnalysis(QueryCriteria queryCriteria,
+			Map<Character, List<VehicleVO>> vehicleDataMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void perHourVehicleAnalysis(QueryCriteria queryCriteria,
+			Map<Character, List<VehicleVO>> vehicleDataMap) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void morningVSEvening(QueryCriteria queryCriteria,
+			Map<Character, List<VehicleVO>> vehicleDataMap) {
+		// TODO Auto-generated method stub
 		
 	}
 

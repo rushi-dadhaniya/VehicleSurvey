@@ -8,9 +8,9 @@ import com.rushi.vehiclesurvey.vo.AnalysisAttributes;
 
 public class VehicleAnalyserFactory {
 
-	private static List<Analyser> vehicleAnalysers = new ArrayList<Analyser>();
+	private static List<AbstractAnalyser> vehicleAnalysers = new ArrayList<AbstractAnalyser>();
 	
-	public static List<Analyser> getInstance(QueryCriteria queryCriteria){
+	public static List<AbstractAnalyser> getInstance(QueryCriteria queryCriteria){
 		
 		vehicleAnalysers.removeAll(vehicleAnalysers);
 		

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.rushi.vehiclesurvey.analyser.Analyser;
+import com.rushi.vehiclesurvey.analyser.AbstractAnalyser;
 import com.rushi.vehiclesurvey.analyser.VehicleAnalyserFactory;
 import com.rushi.vehiclesurvey.builder.VehicleDataBuilder;
 import com.rushi.vehiclesurvey.criteria.QueryCriteria;
@@ -51,9 +51,9 @@ public class App
 	private static void analyseData(List<QueryCriteria> queryCriterias, Map<Character, List<VehicleVO>> vehicleDataMap) {
 
 		for(QueryCriteria queryCriteria : queryCriterias) {
-			List<Analyser> vehicleAnalysers = VehicleAnalyserFactory.getInstance(queryCriteria);
+			List<AbstractAnalyser> vehicleAnalysers = VehicleAnalyserFactory.getInstance(queryCriteria);
 			Map<Character, List<VehicleVO>> vehicleDirectionMap = getDataBasedOnDirection(queryCriteria, vehicleDataMap);
-			for(Analyser analyser: vehicleAnalysers) {
+			for(AbstractAnalyser analyser: vehicleAnalysers) {
 				analyser.doAnalysis(queryCriteria, vehicleDirectionMap);
 			}
 		}

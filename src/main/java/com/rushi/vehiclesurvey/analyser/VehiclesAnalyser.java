@@ -7,31 +7,16 @@ import java.util.Map;
 
 import com.rushi.vehiclesurvey.criteria.QueryCriteria;
 import com.rushi.vehiclesurvey.vo.Date;
-import com.rushi.vehiclesurvey.vo.TimeFrame;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
 import com.rushi.vehilcesurvey.util.NumberUtil;
 import com.rushi.vehilcesurvey.util.PrintQueue;
 
-public class VehiclesAnalyser implements Analyser {
+public class VehiclesAnalyser extends AbstractAnalyser {
 
 	private static final int MORNING_STARTING_HOURS = 0;
 	private static final int MORNING_END_HOURS = 16;
 	
-	public void doAnalysis(QueryCriteria queryCriteria,
-			Map<Character, List<VehicleVO>> vehicleDataMap) {
-
-		if (queryCriteria.getTimeFrame().equals(TimeFrame.TOTAL.getTimeFrame())) {
-			totalVehiclesAnalysis(queryCriteria, vehicleDataMap);
-		} else if (queryCriteria.getTimeFrame().equals(TimeFrame.PER_DAY.getTimeFrame())) {
-			perDayVehicleAnalysis(queryCriteria, vehicleDataMap);
-		} else if (queryCriteria.getTimeFrame().equals(TimeFrame.MORNING_EVENING.getTimeFrame())) {
-			morningVSEvening(queryCriteria, vehicleDataMap);
-		} else {
-			perHourVehicleAnalysis(queryCriteria, vehicleDataMap);
-		}
-	}
-
-	private void morningVSEvening(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
+	public void morningVSEvening(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
 		
 		List<VehicleVO> morningVehicles = new ArrayList<VehicleVO>();
 		List<VehicleVO> eveningVehicles = new ArrayList<VehicleVO>();
@@ -49,16 +34,8 @@ public class VehiclesAnalyser implements Analyser {
 		PrintQueue.getPrintQueue().add("Morning traffic:" + morningVehicles.size() + " Evening traffic:" + eveningVehicles.size() + " on " + queryCriteria.getDirection() +" direction");
 	}
 	
-	private boolean isVehicleInMorningSlot(Date startDate, Date endDate) {
-		int hours = NumberUtil.max(startDate.getHours(), endDate.getHours());
-		if(hours >= MORNING_STARTING_HOURS && hours <= MORNING_END_HOURS) {
-			return true;
-		}
-		return false;
-	}
 	
-	private void perHourVehicleAnalysis(
-			QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
+	public void perHourVehicleAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
 
 		Map<Integer, List<VehicleVO>> perHourVehiclesMap = new HashMap<Integer, List<VehicleVO>>();		
 		for (Map.Entry<Character, List<VehicleVO>> entry : vehicleDataMap.entrySet()) {
@@ -82,7 +59,7 @@ public class VehiclesAnalyser implements Analyser {
 		PrintQueue.getPrintQueue().add("\n");
 	}
 
-	private void perDayVehicleAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
+	public void perDayVehicleAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
 
 		Map<Integer, List<VehicleVO>> perDayVehiclesMap = new HashMap<Integer, List<VehicleVO>>();
 		
@@ -107,7 +84,7 @@ public class VehiclesAnalyser implements Analyser {
 		
 	}
 
-	private void totalVehiclesAnalysis(
+	public void totalVehiclesAnalysis(
 			QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
 		int totalVehicles = 0;
 		for (Map.Entry<Character, List<VehicleVO>> entry : vehicleDataMap
@@ -117,5 +94,12 @@ public class VehiclesAnalyser implements Analyser {
 		PrintQueue.getPrintQueue().add(totalVehicles + " vehicles is/are running on " + queryCriteria.getDirection() + " direction/s");
 	}
 
+	private boolean isVehicleInMorningSlot(Date startDate, Date endDate) {
+		int hours = NumberUtil.max(startDate.getHours(), endDate.getHours());
+		if(hours >= MORNING_STARTING_HOURS && hours <= MORNING_END_HOURS) {
+			return true;
+		}
+		return false;
+	}
 
 }
