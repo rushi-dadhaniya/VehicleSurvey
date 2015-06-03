@@ -33,7 +33,7 @@ public class VehicleVO {
 
 	@Override
 	public String toString() {
-		return "VehicleVO [startDate=" + startDate + ", bounds=" + bounds + ", speed=" + speed + "]";
+		return "VehicleVO [startDate=" + startDate + ", endDate=" +endDate +", bounds=" + bounds + ", speed=" + speed + "]";
 	}
 
 	public Date getEndDate() {

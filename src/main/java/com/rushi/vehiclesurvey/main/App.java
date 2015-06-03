@@ -21,6 +21,7 @@ public class App
         	String path = args[0];
         	List<String> vehicleReadings = readData(path);
         	Map<Character, List<VehicleVO>> vehicleDataMap = buildData(vehicleReadings);
+        	System.out.println(vehicleDataMap);
         	analyseData(vehicleDataMap);
         }
         else {

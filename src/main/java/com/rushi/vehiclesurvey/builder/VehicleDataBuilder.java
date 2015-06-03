@@ -18,7 +18,7 @@ public class VehicleDataBuilder {
 	private VehicleDataParser vehicleDataParser;
 	private TimeUtil timeUtil;
 	private SpeedUtil speedUtil;
-	
+	private static Date date;
 	public void build(List<String> vehicleReadings) {
 		
 		setTimeUtil(new TimeUtil());
@@ -36,7 +36,7 @@ public class VehicleDataBuilder {
 			String vehicleReading = vehicleReadings.get(vehicleReadingIterator);
 			
 			Long currentTime = vehicleDataParser.getTimeInMillis(vehicleReading);
-			Date date = timeUtil.convertMilliSecondsToDate(previousTime, currentTime, currentDay);
+			date = timeUtil.convertMilliSecondsToDate(previousTime, currentTime, currentDay);
 			Character currentRoadBound = vehicleDataParser.getRoadBound(vehicleReading);
 			double speed = 0;
 			
@@ -47,7 +47,7 @@ public class VehicleDataBuilder {
 					vehicleReadingIterator += 1;
 				}
 				else {
-					List<Long> boundTimes = iterateTillLastAxel(previousTime, currentTime, vehicleReadings, vehicleReadingIterator);
+					List<Long> boundTimes = iterateTillLastAxel(previousTime, currentTime, currentDay, vehicleReadings, vehicleReadingIterator);
 					speed = calculateAverageSpeed(boundTimes);
 					buildVehicleData(currentRoadBound.toString(), startDate, date, vehicleBoundDateListMap, speed);
 					vehicleReadingIterator += getNumberOfBounds() + 1;
@@ -80,7 +80,7 @@ public class VehicleDataBuilder {
 		return speed / boundTimes.size();
 	}
 
-	private List<Long> iterateTillLastAxel(Long previousTime, Long currentTime, List<String> vehicleReadings, int vehicleReadingIterator) {
+	private List<Long> iterateTillLastAxel(Long previousTime, Long currentTime, int currentDay, List<String> vehicleReadings, int vehicleReadingIterator) {
 	
 		int numberOfBounds = getNumberOfBounds();
 		List<Long> boundTimes = new ArrayList<Long>();
@@ -91,6 +91,9 @@ public class VehicleDataBuilder {
 			vehicleReadingIterator += 1;
 			if(vehicleReadingIterator < vehicleReadings.size()) {
 				Long boundTime = vehicleDataParser.getTimeInMillis(vehicleReadings.get(vehicleReadingIterator));
+				currentTime = boundTime;
+				date = timeUtil.convertMilliSecondsToDate(previousTime, currentTime, currentDay);
+				previousTime = boundTime;
 				int index = 0;
 				if(iterator % numberOfBounds != 0) {
 					index = 1;
