@@ -16,14 +16,14 @@ public class TotalVehiclaAnalyser implements Analyse {
 		for(Map.Entry<Character,List<VehicleVO>> boundEntry : vehicleDataMap.entrySet()) {
 			totalVehicles += boundEntry.getValue().size();
 		}
-		PrintQueue.getPrintQueue().add("Total vehicles running on bounds" +getBoundNames()  + ":" + totalVehicles);
+		PrintQueue.getPrintQueue().add(totalVehicles +" vehicles is/are running on " +getBoundNames());
 		
 	}
 	
 	private String getBoundNames() {
 		String boundNames = " ";
 		for(RoadBounds roadBound : RoadBounds.values()) {
-			boundNames += roadBound.getBound().toString() + ",";
+			boundNames += roadBound.getBoundName() + ",";
 		}
 		return boundNames;
 	}

@@ -12,7 +12,7 @@ public class VehiclesOnEachBoundAnalyser implements Analyse {
 	public void doAnalysis(Map<Character, List<VehicleVO>> vehicleDataMap) {
 
 		for(Map.Entry<Character,List<VehicleVO>> boundEntry : vehicleDataMap.entrySet()) {
-			PrintQueue.getPrintQueue().add(boundEntry.getValue().size() +" vehicles are running on " + RoadBounds.valueOf(boundEntry.getKey().toString()).getBoundName());
+			PrintQueue.getPrintQueue().add(boundEntry.getValue().size() +" vehicles is/are running on " + RoadBounds.valueOf(boundEntry.getKey().toString()).getBoundName());
 		}
 		
 	}
