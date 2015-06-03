@@ -1,5 +1,6 @@
 package com.rushi.vehiclesurvey.main;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class AppTest {
 	}
 
 	@Test
-	public void mainWithNoCommandLines() {
+	public void mainWithNoCommandLines() throws IOException {
 		App.main(new String[0]);
 		expectedPrintQueue.add(Messages.FILE_PATH_NOT_PROVIDED.getMessage());
 		List<String> printQueue = PrintQueue.getPrintQueue();
