@@ -4,7 +4,8 @@ public enum TimeFrame {
 
 	TOTAL(1, "Total"),
 	PER_DAY(2, "Per day"),
-	PER_HOUR(3, "Per hour");
+	PER_HOUR(3, "Per hour"),
+	MORNING_EVENING(4, "Morning vs Evening");
 	
 	int choice;
 	String timeFrame;
