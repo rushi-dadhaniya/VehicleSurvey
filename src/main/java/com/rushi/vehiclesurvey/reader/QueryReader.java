@@ -47,7 +47,9 @@ public class QueryReader {
     		QueryCriteria queryCriteria = queryCriteriaBuilder.build(analysisAttribute, timeFrame, directionAttribute);
     		queryCriterias.add(queryCriteria);
     		
-    	}while(!(line = bufferedReader.readLine()).equals("done"));
+    		line = bufferedReader.readLine();
+    		
+    	}while(!(line).equals("done"));
     	
     	return queryCriterias;
 	}

@@ -32,8 +32,8 @@ public class QueryCriteria {
 
 	@Override
 	public String toString() {
-		return "QueryCriteria [analysisAttribute=" + analysisAttribute
-				+ ", timeFrame=" + timeFrame + ", direction=" + direction + "]";
+		return timeFrame + " " + analysisAttribute + " for " + direction + " direction/s";
+		
 	}
 	
 }

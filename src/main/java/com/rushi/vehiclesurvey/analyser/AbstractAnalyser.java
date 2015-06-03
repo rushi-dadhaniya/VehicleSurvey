@@ -34,6 +34,14 @@ public abstract class AbstractAnalyser {
 		return false;
 	}
 	
+	protected double calculateDistance(VehicleVO vehicle1, VehicleVO vehicle2) {
+		
+		double speed = (vehicle1.getSpeed() + vehicle2.getSpeed()) / 2;
+		long time = (vehicle1.getStartMillis() + vehicle2.getStartMillis()) / 2;
+		return speed * time;
+		
+	}
+	
 	abstract void totalVehiclesAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap);
 	
 	abstract void perDayVehicleAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap);

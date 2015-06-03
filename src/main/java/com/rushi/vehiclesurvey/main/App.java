@@ -28,7 +28,6 @@ public class App
         	List<String> vehicleReadings = readData(path);
         	Map<Character, List<VehicleVO>> vehicleDataMap = buildData(vehicleReadings);
         	List<QueryCriteria> queryCriterias = readQuery();
-        	System.out.println(queryCriterias);
         	analyseData(queryCriterias, vehicleDataMap);
        }
         else {
@@ -54,6 +53,7 @@ public class App
 			List<AbstractAnalyser> vehicleAnalysers = VehicleAnalyserFactory.getInstance(queryCriteria);
 			Map<Character, List<VehicleVO>> vehicleDirectionMap = getDataBasedOnDirection(queryCriteria, vehicleDataMap);
 			for(AbstractAnalyser analyser: vehicleAnalysers) {
+				PrintQueue.getPrintQueue().add(queryCriteria.toString());
 				analyser.doAnalysis(queryCriteria, vehicleDirectionMap);
 			}
 		}

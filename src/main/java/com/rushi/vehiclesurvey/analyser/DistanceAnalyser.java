@@ -5,11 +5,15 @@ import java.util.Map;
 
 import com.rushi.vehiclesurvey.criteria.QueryCriteria;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
+import com.rushi.vehilcesurvey.util.NumberUtil;
+import com.rushi.vehilcesurvey.util.PrintQueue;
 
 public class DistanceAnalyser extends AbstractAnalyser {
 
-	public void doAnalysis(Map<Character, List<VehicleVO>> vehicleDataMap) {
+	
 
+	@Override
+	public void totalVehiclesAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
 		for(Map.Entry<Character, List<VehicleVO>> entry : vehicleDataMap.entrySet()) {
 			List<VehicleVO> vehicles = entry.getValue();
 			double distance = 0;
@@ -26,7 +30,7 @@ public class DistanceAnalyser extends AbstractAnalyser {
 				}
 				else {
 					if(distance > 0) {
-						System.out.println("distance between vehicles" + distance / vehiclesCount + " on day " + day);
+						PrintQueue.getPrintQueue().add(("distance between vehicles is " + NumberUtil.format(distance / vehiclesCount) + " on day " + day));
 					}
 					else {
 						distance = 0;
@@ -34,46 +38,26 @@ public class DistanceAnalyser extends AbstractAnalyser {
 						day = 0;
 					}
 				}
-				
 			}
-		}
-		
-	}
-
-	private double calculateDistance(VehicleVO vehicle1, VehicleVO vehicle2) {
-		
-		double speed = (vehicle1.getSpeed() + vehicle2.getSpeed()) / 2;
-		long time = (vehicle1.getStartMillis() + vehicle2.getStartMillis()) / 2;
-		return speed * time;
-		
-	}
-
-	@Override
-	void totalVehiclesAnalysis(QueryCriteria queryCriteria,
-			Map<Character, List<VehicleVO>> vehicleDataMap) {
-		// TODO Auto-generated method stub
-		
+		}		
 	}
 
 	@Override
 	void perDayVehicleAnalysis(QueryCriteria queryCriteria,
 			Map<Character, List<VehicleVO>> vehicleDataMap) {
-		// TODO Auto-generated method stub
-		
+		totalVehiclesAnalysis(queryCriteria, vehicleDataMap);
 	}
 
 	@Override
 	void perHourVehicleAnalysis(QueryCriteria queryCriteria,
 			Map<Character, List<VehicleVO>> vehicleDataMap) {
-		// TODO Auto-generated method stub
-		
+		totalVehiclesAnalysis(queryCriteria, vehicleDataMap);		
 	}
 
 	@Override
 	void morningVSEvening(QueryCriteria queryCriteria,
 			Map<Character, List<VehicleVO>> vehicleDataMap) {
-		// TODO Auto-generated method stub
-		
+		totalVehiclesAnalysis(queryCriteria, vehicleDataMap);		
 	}
 
 }
