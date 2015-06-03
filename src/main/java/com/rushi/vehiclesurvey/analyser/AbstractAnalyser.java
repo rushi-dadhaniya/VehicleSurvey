@@ -7,7 +7,7 @@ import com.rushi.vehiclesurvey.criteria.QueryCriteria;
 import com.rushi.vehiclesurvey.vo.TimeFrame;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
 
-abstract class AbstractAnalyser {
+public abstract class AbstractAnalyser {
 
 	public void doAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
 		if (queryCriteria.getTimeFrame().equals(TimeFrame.TOTAL.getTimeFrame())) {
