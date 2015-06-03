@@ -3,6 +3,8 @@ package com.rushi.vehiclesurvey.main;
 import java.util.List;
 import java.util.Map;
 
+import com.rushi.vehiclesurvey.analyser.TotalVehiclaAnalyser;
+import com.rushi.vehiclesurvey.analyser.VehiclesOnEachBoundAnalyser;
 import com.rushi.vehiclesurvey.builder.VehicleDataBuilder;
 import com.rushi.vehiclesurvey.reader.FileStreamReader;
 import com.rushi.vehiclesurvey.vo.Messages;
@@ -19,20 +21,15 @@ public class App
         	String path = args[0];
         	List<String> vehicleReadings = readData(path);
         	
-        	System.out.println("Input:");
-        	
-        	for(String vehicleReading : vehicleReadings) {
-        		System.out.println(vehicleReading);
-        	}
-        	
         	VehicleDataBuilder vehicleDataBuilder = new VehicleDataBuilder();
-        	
         	vehicleDataBuilder.build(vehicleReadings);
         	
-        	Map<Character, List<VehicleVO>> vehicleDataList = VehicleDataFactory.getInstance();
+        	Map<Character, List<VehicleVO>> vehicleDataMap = VehicleDataFactory.getInstance();
         	
-        	System.out.println(vehicleDataList);
-        	
+        	TotalVehiclaAnalyser totalVehiclaAnalyser = new TotalVehiclaAnalyser();
+        	totalVehiclaAnalyser.doAnalysis(vehicleDataMap);
+        	VehiclesOnEachBoundAnalyser vehiclesOnEachBoundAnalyser = new VehiclesOnEachBoundAnalyser();
+        	vehiclesOnEachBoundAnalyser.doAnalysis(vehicleDataMap);
         }
         else {
         	PrintQueue.getPrintQueue().add(Messages.FILE_PATH_NOT_PROVIDED.getMessage());
