@@ -3,8 +3,8 @@ package com.rushi.vehiclesurvey.main;
 import java.util.List;
 import java.util.Map;
 
-import com.rushi.vehiclesurvey.analyser.TotalVehiclaAnalyser;
-import com.rushi.vehiclesurvey.analyser.VehiclesOnEachBoundAnalyser;
+import com.rushi.vehiclesurvey.analyser.Analyser;
+import com.rushi.vehiclesurvey.analyser.VehicleAnalyserFactory;
 import com.rushi.vehiclesurvey.builder.VehicleDataBuilder;
 import com.rushi.vehiclesurvey.reader.FileStreamReader;
 import com.rushi.vehiclesurvey.vo.Messages;
@@ -20,22 +20,30 @@ public class App
         if(args.length >= 1) {
         	String path = args[0];
         	List<String> vehicleReadings = readData(path);
-        	
-        	VehicleDataBuilder vehicleDataBuilder = new VehicleDataBuilder();
-        	vehicleDataBuilder.build(vehicleReadings);
-        	
-        	Map<Character, List<VehicleVO>> vehicleDataMap = VehicleDataFactory.getInstance();
-        	
-        	TotalVehiclaAnalyser totalVehiclaAnalyser = new TotalVehiclaAnalyser();
-        	totalVehiclaAnalyser.doAnalysis(vehicleDataMap);
-        	VehiclesOnEachBoundAnalyser vehiclesOnEachBoundAnalyser = new VehiclesOnEachBoundAnalyser();
-        	vehiclesOnEachBoundAnalyser.doAnalysis(vehicleDataMap);
+        	Map<Character, List<VehicleVO>> vehicleDataMap = buildData(vehicleReadings);
+        	analyseData(vehicleDataMap);
         }
         else {
         	PrintQueue.getPrintQueue().add(Messages.FILE_PATH_NOT_PROVIDED.getMessage());
         }
         printData();
     }
+
+	private static Map<Character, List<VehicleVO>> buildData(List<String> vehicleReadings) {
+		VehicleDataBuilder vehicleDataBuilder = new VehicleDataBuilder();
+    	vehicleDataBuilder.build(vehicleReadings);
+    	return VehicleDataFactory.getInstance();
+	}
+
+	private static void analyseData(
+			Map<Character, List<VehicleVO>> vehicleDataMap) {
+
+		List<Analyser> vehicleAnalysers = VehicleAnalyserFactory.getInstance();
+		for(Analyser analyser: vehicleAnalysers) {
+			analyser.doAnalysis(vehicleDataMap);
+		}
+		
+	}
 
 	private static void printData() {
 		List<String> printQueue = PrintQueue.getPrintQueue();

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.rushi.vehiclesurvey.vo.VehicleVO;
 
-public interface Analyse {
+public interface Analyser {
 
 	public void doAnalysis(Map<Character, List<VehicleVO>> vehicleDataMap);
 	

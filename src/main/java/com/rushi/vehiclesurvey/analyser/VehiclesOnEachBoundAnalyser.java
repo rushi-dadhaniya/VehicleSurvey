@@ -7,7 +7,7 @@ import com.rushi.vehiclesurvey.vo.RoadBounds;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
 import com.rushi.vehilcesurvey.util.PrintQueue;
 
-public class VehiclesOnEachBoundAnalyser implements Analyse {
+public class VehiclesOnEachBoundAnalyser implements Analyser {
 
 	public void doAnalysis(Map<Character, List<VehicleVO>> vehicleDataMap) {
 
