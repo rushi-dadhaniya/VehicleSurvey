@@ -2,9 +2,9 @@ package com.rushi.vehiclesurvey.vo;
 
 public enum TimeFrame {
 
-	ONE(1, "Total"),
-	TWO(2, "Per day"),
-	THREE(3, "Per hour");
+	TOTAL(1, "Total"),
+	PER_DAY(2, "Per day"),
+	PER_HOUR(3, "Per hour");
 	
 	int choice;
 	String timeFrame;
@@ -18,7 +18,7 @@ public enum TimeFrame {
 		return choice;
 	}
 
-	public String getAnalysisAttribute() {
+	public String getTimeFrame() {
 		return timeFrame;
 	}
 	

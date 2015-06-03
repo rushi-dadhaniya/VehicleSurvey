@@ -2,9 +2,9 @@ package com.rushi.vehiclesurvey.vo;
 
 public enum AnalysisAttributes {
 
-	ONE(1, "Vehicles"),
-	TWO(2, "Speed distribution"),
-	THREE(3, "Distance distribution");
+	VEHICLES(1, "Vehicles"),
+	SPEED_DISTRIBUTION(2, "Speed distribution"),
+	DISTANCE_DISTRIBUTION(3, "Distance distribution");
 	
 	int choice;
 	String analysisAttribute;

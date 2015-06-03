@@ -2,8 +2,8 @@ package com.rushi.vehiclesurvey.vo;
 
 public enum RoadBounds {
 
-	A('A', "North bound"),
-	B('B', "South bound");
+	NORTH('A', "North"),
+	SOUTH('B', "South");
 
 	private Character bound;
 	String boundName;

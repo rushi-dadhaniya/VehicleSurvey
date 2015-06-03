@@ -2,9 +2,9 @@ package com.rushi.vehiclesurvey.vo;
 
 public enum DirectionAttributes {
 
-	ONE(1, "North"),
-	TWO(2, "South"),
-	THREE(3, "All");
+	NORTH(1, "North"),
+	SOUTH(2, "South"),
+	ALL(3, "All");
 	
 	int choice;
 	String directionAttribute;
@@ -18,7 +18,7 @@ public enum DirectionAttributes {
 		return choice;
 	}
 
-	public String getAnalysisAttribute() {
+	public String getDirectionAttribute() {
 		return directionAttribute;
 	}
 	

@@ -34,13 +34,13 @@ public class QueryReader {
     		System.out.println("Select analysis criteria:");
     		count = 1;
     		for(TimeFrame timeFrames : TimeFrame.values()) {
-    			System.out.println(count++ + "." + timeFrames.getAnalysisAttribute());
+    			System.out.println(count++ + "." + timeFrames.getTimeFrame());
     		}
     		int timeFrame = Integer.parseInt(bufferedReader.readLine());
     		System.out.println("Select direction:");
     		count = 1;
     		for(DirectionAttributes directionAttributes : DirectionAttributes.values()) {
-    			System.out.println(count++ + "." + directionAttributes.getAnalysisAttribute());
+    			System.out.println(count++ + "." + directionAttributes.getDirectionAttribute());
     		}
     		int directionAttribute = Integer.parseInt(bufferedReader.readLine());
     		

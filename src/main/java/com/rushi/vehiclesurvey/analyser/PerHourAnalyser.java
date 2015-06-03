@@ -44,11 +44,6 @@ public class PerHourAnalyser implements Analyser {
 		
 	}
 
-	private int max(int hours, int hours2) {
-		if(hours > hours2) {
-			return hours;
-		}
-		return hours2;
-	}
+	
 
 }

@@ -1,6 +1,7 @@
 package com.rushi.vehiclesurvey.main;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,9 @@ import com.rushi.vehiclesurvey.builder.VehicleDataBuilder;
 import com.rushi.vehiclesurvey.criteria.QueryCriteria;
 import com.rushi.vehiclesurvey.reader.FileStreamReader;
 import com.rushi.vehiclesurvey.reader.QueryReader;
+import com.rushi.vehiclesurvey.vo.DirectionAttributes;
 import com.rushi.vehiclesurvey.vo.Messages;
+import com.rushi.vehiclesurvey.vo.RoadBounds;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
 import com.rushi.vehilcesurvey.util.PrintQueue;
 import com.rushi.vehilcesurvey.util.PrintUtil;
@@ -26,7 +29,7 @@ public class App
         	Map<Character, List<VehicleVO>> vehicleDataMap = buildData(vehicleReadings);
         	List<QueryCriteria> queryCriterias = readQuery();
         	System.out.println(queryCriterias);
-//        	analyseData(vehicleDataMap);
+        	analyseData(queryCriterias, vehicleDataMap);
        }
         else {
         	PrintQueue.getPrintQueue().add(Messages.FILE_PATH_NOT_PROVIDED.getMessage());
@@ -45,13 +48,36 @@ public class App
     	return VehicleDataFactory.getInstance();
 	}
 
-	private static void analyseData(
+	private static void analyseData(List<QueryCriteria> queryCriterias, Map<Character, List<VehicleVO>> vehicleDataMap) {
+
+		for(QueryCriteria queryCriteria : queryCriterias) {
+			List<Analyser> vehicleAnalysers = VehicleAnalyserFactory.getInstance(queryCriteria);
+			Map<Character, List<VehicleVO>> vehicleDirectionMap = getDataBasedOnDirection(queryCriteria, vehicleDataMap);
+			for(Analyser analyser: vehicleAnalysers) {
+				analyser.doAnalysis(queryCriteria, vehicleDirectionMap);
+			}
+		}
+		
+		
+	}
+
+	private static Map<Character, List<VehicleVO>> getDataBasedOnDirection(QueryCriteria queryCriteria,
 			Map<Character, List<VehicleVO>> vehicleDataMap) {
 
-		List<Analyser> vehicleAnalysers = VehicleAnalyserFactory.getInstance();
-		for(Analyser analyser: vehicleAnalysers) {
-			analyser.doAnalysis(vehicleDataMap);
+		Character direction = null;
+		if(queryCriteria.getDirection().equals(DirectionAttributes.NORTH.getDirectionAttribute())) {
+			direction = RoadBounds.valueOf("NORTH").getBound();
 		}
+		else if(queryCriteria.getDirection().equals(DirectionAttributes.SOUTH.getDirectionAttribute())) {
+			direction = RoadBounds.valueOf("SOUTH").getBound();
+		}
+		if(direction != null) {
+			List<VehicleVO> vehicles = vehicleDataMap.get(direction);
+			Map<Character, List<VehicleVO>> vehicleDirectionMap = new HashMap<Character, List<VehicleVO>>();
+			vehicleDirectionMap.put(direction, vehicles);
+			return vehicleDirectionMap;
+		}
+		return vehicleDataMap;
 		
 	}
 

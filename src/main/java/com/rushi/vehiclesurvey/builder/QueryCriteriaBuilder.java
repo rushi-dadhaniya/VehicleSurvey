@@ -30,7 +30,7 @@ public class QueryCriteriaBuilder {
 		for(TimeFrame timeFrames : TimeFrame.values()) {
 		
 			if(timeFrames.getChoice() == timeFrame) {
-				queryCriteria.setTimeFrame(timeFrames.getAnalysisAttribute());
+				queryCriteria.setTimeFrame(timeFrames.getTimeFrame());
 			}
 			
 		}
@@ -40,7 +40,7 @@ public class QueryCriteriaBuilder {
 		for(DirectionAttributes directionAttributes : DirectionAttributes.values()) {
 		
 			if(directionAttributes.getChoice() == directionAttribute) {
-				queryCriteria.setDirection(directionAttributes.getAnalysisAttribute());
+				queryCriteria.setDirection(directionAttributes.getDirectionAttribute());
 			}
 			
 		}
