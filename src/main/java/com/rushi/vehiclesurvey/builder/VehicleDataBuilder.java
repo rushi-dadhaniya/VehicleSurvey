@@ -43,13 +43,13 @@ public class VehicleDataBuilder {
 			if(isVehiclePossible(numberOfBounds, vehicleReadingIterator)) {
 				if(currentRoadBound == previousRoadBound) {
 					speed = speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToMinutes(currentTime - previousTime));
-					buildVehicleDataOnSameRoadBound(currentRoadBound.toString(), startDate, date, vehicleBoundDateListMap, speed);
+					buildVehicleData(currentRoadBound.toString(), startDate, date, vehicleBoundDateListMap, speed);
 					vehicleReadingIterator += 1;
 				}
 				else {
 					List<Long> boundTimes = iterateTillLastAxel(previousTime, currentTime, vehicleReadings, vehicleReadingIterator);
 					speed = calculateAverageSpeed(boundTimes);
-					buildVehicleDataOnDifferentBounds(currentRoadBound.toString(), previousRoadBound.toString(), startDate, date, vehicleBoundDateListMap, speed);
+					buildVehicleData(currentRoadBound.toString(), startDate, date, vehicleBoundDateListMap, speed);
 					vehicleReadingIterator += getNumberOfBounds() + 1;
 				}
 				if(vehicleReadingIterator < vehicleReadings.size()) {
@@ -109,22 +109,15 @@ public class VehicleDataBuilder {
 		return RoadBounds.values().length;
 	}
 
-	private void buildVehicleDataOnSameRoadBound(String currentRoadBound, Date startDate, Date endDate, Map<Character, List<VehicleVO>> vehicleBoundDateListMap, double speed) {
-		buildVehicleDataOnDifferentBounds(currentRoadBound, " ", startDate, endDate, vehicleBoundDateListMap, speed);
-	}
-
-	private void buildVehicleDataOnDifferentBounds(String currentRoadBound, String previousRoadBound, Date startDate, Date endDate, Map<Character, List<VehicleVO>> vehicleBoundDateListMap, double speed) {
+	private void buildVehicleData(String currentRoadBound,Date startDate, Date endDate, Map<Character, List<VehicleVO>> vehicleBoundDateListMap, double speed) {
 		
 		if(vehicleBoundDateListMap.get(currentRoadBound.charAt(0)) != null && speed != 0) {
 			VehicleVO vehicleVO = new VehicleVO();
-			vehicleVO.setBounds(currentRoadBound.toString() + " " + previousRoadBound.toString() );
+			vehicleVO.setBounds(currentRoadBound.toString());
 			vehicleVO.setStartDate(startDate);
 			vehicleVO.setEndDate(endDate);
 			vehicleVO.setSpeed(speed);
 			vehicleBoundDateListMap.get(currentRoadBound.charAt(0)).add(vehicleVO);
-			if(vehicleBoundDateListMap.get(previousRoadBound.charAt(0)) != null) {
-				vehicleBoundDateListMap.get(previousRoadBound.charAt(0)).add(vehicleVO);
-			}
 		}
 	}
 	
