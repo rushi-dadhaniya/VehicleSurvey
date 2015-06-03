@@ -12,6 +12,7 @@ public class VehicleAnalyserFactory {
 			vehicleAnalysers.add(new TotalVehiclaAnalyser());
 			vehicleAnalysers.add(new VehiclesOnEachDirectionAnalyser());
 			vehicleAnalysers.add(new MorningEveningTrafficAnalyser());
+			vehicleAnalysers.add(new PerHourAnalyser());
 		}
 		return vehicleAnalysers;
 	}
