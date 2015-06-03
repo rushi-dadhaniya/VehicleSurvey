@@ -1,5 +1,7 @@
 package com.rushi.vehilcesurvey.util;
 
+import java.text.DecimalFormat;
+
 public class NumberUtil {
 
 	public static int max(int number1, int number2) {
@@ -7,6 +9,11 @@ public class NumberUtil {
 			return number1;
 		}
 		return number2;
+	}
+	
+	public static double format(double number) {
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
+		return Double.parseDouble(decimalFormat.format(number));
 	}
 	
 }

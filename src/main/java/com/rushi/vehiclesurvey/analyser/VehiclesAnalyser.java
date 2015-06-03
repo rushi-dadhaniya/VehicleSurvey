@@ -6,16 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.rushi.vehiclesurvey.criteria.QueryCriteria;
-import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
 import com.rushi.vehilcesurvey.util.NumberUtil;
 import com.rushi.vehilcesurvey.util.PrintQueue;
 
 public class VehiclesAnalyser extends AbstractAnalyser {
 
-	private static final int MORNING_STARTING_HOURS = 0;
-	private static final int MORNING_END_HOURS = 16;
-	
 	public void morningVSEvening(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
 		
 		List<VehicleVO> morningVehicles = new ArrayList<VehicleVO>();
@@ -52,11 +48,7 @@ public class VehiclesAnalyser extends AbstractAnalyser {
 				}
 			}
 		}
-		for (Map.Entry<Integer, List<VehicleVO>> entry : perHourVehiclesMap
-				.entrySet()) {
-			PrintQueue.getPrintQueue().add((entry.getKey() + ":" + entry.getValue().size() + "\t"));
-		}
-		PrintQueue.getPrintQueue().add("\n");
+		print(perHourVehiclesMap);
 	}
 
 	public void perDayVehicleAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
@@ -77,11 +69,16 @@ public class VehiclesAnalyser extends AbstractAnalyser {
 				}
 			}
 		}
-		for (Map.Entry<Integer, List<VehicleVO>> entry : perDayVehiclesMap.entrySet()) {
+		print(perDayVehiclesMap);
+		
+	}
+
+
+	private void print(Map<Integer, List<VehicleVO>> map) {
+		for (Map.Entry<Integer, List<VehicleVO>> entry : map.entrySet()) {
 			PrintQueue.getPrintQueue().add((entry.getKey() + ":" + entry.getValue().size() + "\t"));
 		}
 		PrintQueue.getPrintQueue().add("\n");
-		
 	}
 
 	public void totalVehiclesAnalysis(
@@ -92,14 +89,6 @@ public class VehiclesAnalyser extends AbstractAnalyser {
 			totalVehicles += entry.getValue().size();
 		}
 		PrintQueue.getPrintQueue().add(totalVehicles + " vehicles is/are running on " + queryCriteria.getDirection() + " direction/s");
-	}
-
-	private boolean isVehicleInMorningSlot(Date startDate, Date endDate) {
-		int hours = NumberUtil.max(startDate.getHours(), endDate.getHours());
-		if(hours >= MORNING_STARTING_HOURS && hours <= MORNING_END_HOURS) {
-			return true;
-		}
-		return false;
 	}
 
 }

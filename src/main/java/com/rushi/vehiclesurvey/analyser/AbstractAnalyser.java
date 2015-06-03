@@ -4,11 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.rushi.vehiclesurvey.criteria.QueryCriteria;
+import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehiclesurvey.vo.TimeFrame;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
+import com.rushi.vehilcesurvey.util.NumberUtil;
 
 public abstract class AbstractAnalyser {
 
+	private static final int MORNING_STARTING_HOURS = 0;
+	private static final int MORNING_END_HOURS = 16;
+	
 	public void doAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap) {
 		if (queryCriteria.getTimeFrame().equals(TimeFrame.TOTAL.getTimeFrame())) {
 			totalVehiclesAnalysis(queryCriteria, vehicleDataMap);
@@ -19,6 +24,14 @@ public abstract class AbstractAnalyser {
 		} else {
 			perHourVehicleAnalysis(queryCriteria, vehicleDataMap);
 		}
+	}
+	
+	protected boolean isVehicleInMorningSlot(Date startDate, Date endDate) {
+		int hours = NumberUtil.max(startDate.getHours(), endDate.getHours());
+		if(hours >= MORNING_STARTING_HOURS && hours <= MORNING_END_HOURS) {
+			return true;
+		}
+		return false;
 	}
 	
 	abstract void totalVehiclesAnalysis(QueryCriteria queryCriteria, Map<Character, List<VehicleVO>> vehicleDataMap);
