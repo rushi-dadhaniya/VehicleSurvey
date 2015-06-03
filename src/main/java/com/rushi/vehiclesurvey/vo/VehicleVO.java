@@ -6,6 +6,7 @@ public class VehicleVO {
 	private Date endDate;
 	String bounds;
 	double speed;
+	private Long startMillis;
 	
 	public Date getStartDate() {
 		return startDate;
@@ -33,7 +34,9 @@ public class VehicleVO {
 
 	@Override
 	public String toString() {
-		return "VehicleVO [startDate=" + startDate + ", endDate=" +endDate +", bounds=" + bounds + ", speed=" + speed + "]";
+		return "VehicleVO [startDate=" + startDate + ", endDate=" + endDate
+				+ ", bounds=" + bounds + ", speed=" + speed + ", startMillis="
+				+ startMillis + "]";
 	}
 
 	public Date getEndDate() {
@@ -42,6 +45,14 @@ public class VehicleVO {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public Long getStartMillis() {
+		return startMillis;
+	}
+
+	public void setStartMillis(Long startMillis) {
+		this.startMillis = startMillis;
 	}
 	
 }

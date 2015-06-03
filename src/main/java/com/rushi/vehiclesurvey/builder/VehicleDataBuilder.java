@@ -43,13 +43,13 @@ public class VehicleDataBuilder {
 			if(isVehiclePossible(numberOfBounds, vehicleReadingIterator)) {
 				if(currentRoadBound == previousRoadBound) {
 					speed = speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToMinutes(currentTime - previousTime));
-					buildVehicleData(currentRoadBound.toString(), startDate, date, vehicleBoundDateListMap, speed);
+					buildVehicleData(currentRoadBound.toString(), previousTime, startDate, date, vehicleBoundDateListMap, speed);
 					vehicleReadingIterator += 1;
 				}
 				else {
 					List<Long> boundTimes = iterateTillLastAxel(previousTime, currentTime, currentDay, vehicleReadings, vehicleReadingIterator);
 					speed = calculateAverageSpeed(boundTimes);
-					buildVehicleData(currentRoadBound.toString(), startDate, date, vehicleBoundDateListMap, speed);
+					buildVehicleData(currentRoadBound.toString(),previousTime, startDate, date, vehicleBoundDateListMap, speed);
 					vehicleReadingIterator += getNumberOfBounds() + 1;
 				}
 				if(vehicleReadingIterator < vehicleReadings.size()) {
@@ -112,7 +112,7 @@ public class VehicleDataBuilder {
 		return RoadBounds.values().length;
 	}
 
-	private void buildVehicleData(String currentRoadBound,Date startDate, Date endDate, Map<Character, List<VehicleVO>> vehicleBoundDateListMap, double speed) {
+	private void buildVehicleData(String currentRoadBound,Long previousTime, Date startDate, Date endDate, Map<Character, List<VehicleVO>> vehicleBoundDateListMap, double speed) {
 		
 		if(vehicleBoundDateListMap.get(currentRoadBound.charAt(0)) != null && speed != 0) {
 			VehicleVO vehicleVO = new VehicleVO();
@@ -120,6 +120,7 @@ public class VehicleDataBuilder {
 			vehicleVO.setStartDate(startDate);
 			vehicleVO.setEndDate(endDate);
 			vehicleVO.setSpeed(speed);
+			vehicleVO.setStartMillis(previousTime);
 			vehicleBoundDateListMap.get(currentRoadBound.charAt(0)).add(vehicleVO);
 		}
 	}
