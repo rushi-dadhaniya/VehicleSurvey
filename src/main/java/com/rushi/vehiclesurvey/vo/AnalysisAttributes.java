@@ -4,7 +4,8 @@ public enum AnalysisAttributes {
 
 	VEHICLES(1, "Vehicles"),
 	SPEED_DISTRIBUTION(2, "Speed distribution"),
-	DISTANCE_DISTRIBUTION(3, "Distance distribution");
+	DISTANCE_DISTRIBUTION(3, "Distance distribution"),
+	PICK_TIME(4, "Pick time");
 	
 	int choice;
 	String analysisAttribute;

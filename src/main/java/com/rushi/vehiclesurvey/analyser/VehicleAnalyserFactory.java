@@ -20,6 +20,9 @@ public class VehicleAnalyserFactory {
 		else if(queryCriteria.getAnalysisAttribute().equals(AnalysisAttributes.SPEED_DISTRIBUTION.getAnalysisAttribute())) {
 			vehicleAnalysers.add(new SpeedAnalyser());
 		}
+		else if(queryCriteria.getAnalysisAttribute().equals(AnalysisAttributes.PICK_TIME.getAnalysisAttribute())) {
+			vehicleAnalysers.add(new PickTimeAnalyser());
+		}
 		else {
 			vehicleAnalysers.add(new DistanceAnalyser());
 		}
