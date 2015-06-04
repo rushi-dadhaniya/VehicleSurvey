@@ -8,6 +8,7 @@ import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehiclesurvey.vo.TimeFrame;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
 import com.rushi.vehilcesurvey.util.NumberUtil;
+import com.rushi.vehilcesurvey.util.TimeUtil;
 
 public abstract class AbstractAnalyser {
 
@@ -36,8 +37,11 @@ public abstract class AbstractAnalyser {
 	
 	protected double calculateDistance(VehicleVO vehicle1, VehicleVO vehicle2) {
 		
+		TimeUtil timeUtil = new TimeUtil();
 		double speed = (vehicle1.getSpeed() + vehicle2.getSpeed()) / 2;
-		long time = (vehicle1.getStartMillis() + vehicle2.getStartMillis()) / 2;
+		Double hours1 = timeUtil.convertMilliSecondsToHours(vehicle1.getStartMillis());
+		Double hours2 = timeUtil.convertMilliSecondsToHours(vehicle1.getStartMillis());
+		Double time = (hours1 + hours2) / 2;
 		return speed * time;
 		
 	}

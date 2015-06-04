@@ -42,7 +42,7 @@ public class VehicleDataBuilder {
 			
 			if(isVehiclePossible(numberOfBounds, vehicleReadingIterator)) {
 				if(currentRoadBound == previousRoadBound) {
-					speed = speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToMinutes(currentTime - previousTime));
+					speed = speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToHours(currentTime - previousTime));
 					buildVehicleData(currentRoadBound.toString(), previousTime, startDate, date, vehicleBoundDateListMap, speed);
 					vehicleReadingIterator += 1;
 				}
@@ -75,7 +75,7 @@ public class VehicleDataBuilder {
 
 		double speed = 0;
 		for(Long boundTime : boundTimes) {
-			speed += speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToMinutes(boundTime));
+			speed += speedUtil.calculateSpeed(timeUtil.convertMilliSecondsToHours(boundTime));
 		}
 		return speed / boundTimes.size();
 	}

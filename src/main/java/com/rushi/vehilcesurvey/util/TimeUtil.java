@@ -24,7 +24,7 @@ public class TimeUtil {
 		return null;
 	}
 
-	public Double convertMilliSecondsToMinutes(Long millis) {
+	public Double convertMilliSecondsToHours(Long millis) {
 		if(millis != null) {
 			return millis / MILLIS_HOUR_FACTOR;
 		}
