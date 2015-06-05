@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.rushi.vehiclesurvey.criteria.QueryCriteria;
+import com.rushi.vehiclesurvey.util.NumberUtil;
+import com.rushi.vehiclesurvey.util.TimeUtil;
 import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehiclesurvey.vo.TimeFrame;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
-import com.rushi.vehilcesurvey.util.NumberUtil;
-import com.rushi.vehilcesurvey.util.TimeUtil;
 
 public abstract class AbstractAnalyser {
 

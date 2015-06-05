@@ -3,9 +3,9 @@ package com.rushi.vehiclesurvey.processor;
 import java.util.List;
 
 import com.rushi.vehiclesurvey.parser.VehicleDataParser;
+import com.rushi.vehiclesurvey.util.PrintQueue;
 import com.rushi.vehiclesurvey.validator.VehicleReadingValidator;
 import com.rushi.vehiclesurvey.vo.Messages;
-import com.rushi.vehilcesurvey.util.PrintQueue;
 
 public class VehicleDataProcessor implements Processor {
 

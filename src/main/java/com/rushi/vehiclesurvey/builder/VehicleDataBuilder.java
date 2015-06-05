@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.rushi.vehiclesurvey.parser.VehicleDataParser;
+import com.rushi.vehiclesurvey.util.SpeedUtil;
+import com.rushi.vehiclesurvey.util.TimeUtil;
+import com.rushi.vehiclesurvey.util.VehicleDataFactory;
 import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehiclesurvey.vo.RoadBounds;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
-import com.rushi.vehilcesurvey.util.SpeedUtil;
-import com.rushi.vehilcesurvey.util.TimeUtil;
-import com.rushi.vehilcesurvey.util.VehicleDataFactory;
 
 
 public class VehicleDataBuilder {
