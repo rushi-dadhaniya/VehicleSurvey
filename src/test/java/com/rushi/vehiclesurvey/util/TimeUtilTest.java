@@ -19,6 +19,32 @@ public class TimeUtilTest {
 	}
 	
 	@Test
+	public void inNewDayWithDifferentDayData() {
+		Assert.assertTrue(timeUtil.isNewDay(new Long(2000), new Long(1000)));
+	}
+	
+	@Test
+	public void inNewDayWithSameDayData() {
+		Assert.assertFalse(timeUtil.isNewDay(new Long(1000), new Long(2000)));
+	}
+	
+	@Test
+	public void inNewDayWithNull() {
+		Assert.assertFalse(timeUtil.isNewDay(null, null));
+	}
+	
+	@Test
+	public void millsToHoursWithValidValue() {
+		Double hours = timeUtil.convertMilliSecondsToHours(new Long(3600000));
+		Assert.assertEquals(new Double(1), hours);
+	}
+	
+	@Test
+	public void millsToHoursWithNull() {
+		Assert.assertNull(timeUtil.convertMilliSecondsToHours(null));
+	}
+	
+	@Test
 	public void convertMilliSecondsToDateNewEntryNextDay() {
 		expectedDate.setDay(3);
 		expectedDate.setHours(1);

@@ -10,10 +10,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.rushi.vehiclesurvey.util.VehicleDataFactory;
 import com.rushi.vehiclesurvey.vo.Date;
 import com.rushi.vehiclesurvey.vo.RoadBounds;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
-import com.rushi.vehilcesurvey.util.VehicleDataFactory;
 
 public class VehicleBuilderTest {
 
