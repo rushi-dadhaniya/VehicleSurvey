@@ -1,4 +1,4 @@
-package com.rushi.vehilcesurvey.util;
+package com.rushi.vehiclesurvey.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

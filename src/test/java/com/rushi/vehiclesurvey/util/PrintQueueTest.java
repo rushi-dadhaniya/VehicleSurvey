@@ -7,7 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.rushi.vehilcesurvey.util.PrintQueue;
+import com.rushi.vehiclesurvey.util.PrintQueue;
 
 public class PrintQueueTest {
 

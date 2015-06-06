@@ -11,13 +11,13 @@ import com.rushi.vehiclesurvey.builder.VehicleDataBuilder;
 import com.rushi.vehiclesurvey.criteria.QueryCriteria;
 import com.rushi.vehiclesurvey.reader.FileStreamReader;
 import com.rushi.vehiclesurvey.reader.QueryReader;
+import com.rushi.vehiclesurvey.util.PrintQueue;
+import com.rushi.vehiclesurvey.util.PrintUtil;
+import com.rushi.vehiclesurvey.util.VehicleDataFactory;
 import com.rushi.vehiclesurvey.vo.DirectionAttributes;
 import com.rushi.vehiclesurvey.vo.Messages;
 import com.rushi.vehiclesurvey.vo.RoadBounds;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
-import com.rushi.vehilcesurvey.util.PrintQueue;
-import com.rushi.vehilcesurvey.util.PrintUtil;
-import com.rushi.vehilcesurvey.util.VehicleDataFactory;
 
 public class App 
 {

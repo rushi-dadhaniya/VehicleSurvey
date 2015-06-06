@@ -1,4 +1,4 @@
-package com.rushi.vehilcesurvey.util;
+package com.rushi.vehiclesurvey.util;
 
 public class PrintUtil {
 

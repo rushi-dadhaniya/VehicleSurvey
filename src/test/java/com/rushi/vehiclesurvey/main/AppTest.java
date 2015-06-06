@@ -9,8 +9,8 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.rushi.vehiclesurvey.util.PrintQueue;
 import com.rushi.vehiclesurvey.vo.Messages;
-import com.rushi.vehilcesurvey.util.PrintQueue;
 
 public class AppTest {
 

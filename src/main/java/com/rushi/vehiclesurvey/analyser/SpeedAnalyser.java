@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.rushi.vehiclesurvey.criteria.QueryCriteria;
+import com.rushi.vehiclesurvey.util.NumberUtil;
+import com.rushi.vehiclesurvey.util.PrintQueue;
 import com.rushi.vehiclesurvey.vo.VehicleVO;
-import com.rushi.vehilcesurvey.util.NumberUtil;
-import com.rushi.vehilcesurvey.util.PrintQueue;
 
 public class SpeedAnalyser extends AbstractAnalyser {
 

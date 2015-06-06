@@ -3,8 +3,9 @@ package com.rushi.vehiclesurvey.util;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.rushi.vehiclesurvey.util.TimeUtil;
 import com.rushi.vehiclesurvey.vo.Date;
-import com.rushi.vehilcesurvey.util.TimeUtil;
 
 public class TimeUtilTest {
 
