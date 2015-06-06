@@ -2,17 +2,18 @@ package com.rushi.vehiclesurvey.reader;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class FileStreamReaderTest {
 
-	private FileStreamReader fileStreamReader;
-	private List<String> expectedLines;
+	private static FileStreamReader fileStreamReader;
+	private static List<String> expectedLines;
 	
-	@Before
-	public void setUp() {
+	@BeforeClass
+	public static void setUp() {
 		fileStreamReader = new  FileStreamReader();
 		expectedLines = new ArrayList<String>();
 	}

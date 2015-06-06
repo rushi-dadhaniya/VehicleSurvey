@@ -13,6 +13,7 @@ import com.rushi.vehiclesurvey.vo.TimeFrame;
 public class QueryCriteriaBuilderTest {
 
 	private static QueryCriteriaBuilder queryCriteriaBuilder;
+	
 	@BeforeClass
 	public static void setUp() {
 		queryCriteriaBuilder = new QueryCriteriaBuilder();

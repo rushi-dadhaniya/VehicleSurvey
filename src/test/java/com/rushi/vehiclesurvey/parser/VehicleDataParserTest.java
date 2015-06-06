@@ -1,15 +1,15 @@
 package com.rushi.vehiclesurvey.parser;
 
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class VehicleDataParserTest {
 
-	private VehicleDataParser vehicleDataParser;
+	private static VehicleDataParser vehicleDataParser;
 	
-	@Before
-	public void setUp() {
+	@BeforeClass
+	public static void setUp() {
 		vehicleDataParser = new VehicleDataParser();
 	}
 	
