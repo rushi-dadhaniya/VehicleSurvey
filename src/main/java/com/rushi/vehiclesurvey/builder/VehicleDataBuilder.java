@@ -21,7 +21,7 @@ public class VehicleDataBuilder {
 		
 		if(vehicleReadings != null) {
 			Map<Character, List<VehicleVO>> vehicleBoundDateListMap = VehicleDataFactory.getInstance();
-			
+			setVehicleDataParser(new VehicleDataParser());
 			int currentDay = 1;
 			int numberOfBounds = getNumberOfBounds();
 			Character previousRoadBound = vehicleDataParser.getRoadBound(vehicleReadings.get(0));
