@@ -4,7 +4,7 @@ public class SpeedUtil {
 
 	private static final Double DISTANCE = 0.0025; 
 	
-	public double calculateSpeed(double time) {
+	public static double calculateSpeed(double time) {
 		if(time > 0.0) {
 			return DISTANCE / time;
 		}

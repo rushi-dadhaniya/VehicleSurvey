@@ -37,10 +37,9 @@ public abstract class AbstractAnalyser {
 	
 	protected double calculateDistance(VehicleVO vehicle1, VehicleVO vehicle2) {
 		
-		TimeUtil timeUtil = new TimeUtil();
 		double speed = (vehicle1.getSpeed() + vehicle2.getSpeed()) / 2;
-		Double hours1 = timeUtil.convertMilliSecondsToHours(vehicle1.getStartMillis());
-		Double hours2 = timeUtil.convertMilliSecondsToHours(vehicle1.getStartMillis());
+		Double hours1 = TimeUtil.convertMilliSecondsToHours(vehicle1.getStartMillis());
+		Double hours2 = TimeUtil.convertMilliSecondsToHours(vehicle1.getStartMillis());
 		Double time = (hours1 + hours2) / 2;
 		return speed * time;
 		
